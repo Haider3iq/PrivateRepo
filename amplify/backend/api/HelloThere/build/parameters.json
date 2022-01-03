@@ -1,0 +1,13 @@
+{
+    "AppSyncApiName": "HelloThere",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authHelloThere",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "S3DeploymentBucket": "amplify-hellothere-staging-72144-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/a61ddbdeeebcddce9a6637605c77341e947c336f"
+}

@@ -1,0 +1,1089 @@
+
+type Momment @aws_iam @aws_api_key {
+  id: ID!
+  Shares(filter: ModelSharesFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelSharesConnection
+  Comments(filter: ModelCommentFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelCommentConnection
+  Likes(filter: ModelLikeFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelLikeConnection
+  userID: ID
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type Shares @aws_iam @aws_api_key {
+  id: ID!
+  mommentID: ID
+  postID: ID
+  userID: ID
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type Comment @aws_iam @aws_api_key {
+  id: ID!
+  mommentID: ID
+  postID: ID
+  userID: ID
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type Like @aws_iam @aws_api_key {
+  id: ID!
+  mommentID: ID
+  postID: ID
+  userID: ID
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type Post @aws_iam @aws_api_key {
+  id: ID!
+  Shares(filter: ModelSharesFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelSharesConnection
+  Comments(filter: ModelCommentFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelCommentConnection
+  Likes(filter: ModelLikeFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelLikeConnection
+  userID: ID
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type BlockedUser @aws_iam @aws_api_key {
+  id: ID!
+  userID: ID
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type Following @aws_iam @aws_api_key {
+  id: ID!
+  userID: ID
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type Follower @aws_iam @aws_api_key {
+  id: ID!
+  userID: ID
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type SavedMessages @aws_iam @aws_api_key {
+  id: ID!
+  content: String
+  senderName: String
+  senderID: ID
+  userID: ID
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type Reaction @aws_iam @aws_api_key {
+  id: ID!
+  userID: ID
+  content: String
+  messageID: ID
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+enum MessageStatus {
+  SENT
+  DELIVERED
+  READ
+}
+
+type Message @aws_iam @aws_api_key {
+  id: ID!
+  content: String
+  userID: ID
+  chatroomID: ID
+  image: String
+  audio: String
+  status: MessageStatus
+  replyToMessageID: ID
+  Reactions(filter: ModelReactionFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelReactionConnection
+  isSelected: Boolean
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type ChatRoom @aws_iam @aws_api_key {
+  id: ID!
+  newMessages: Int
+  LastMessage: Message
+  Messages(filter: ModelMessageFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelMessageConnection
+  ChatRoomUser(filter: ModelChatRoomUserFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelChatRoomUserConnection
+  Admin: User
+  name: String
+  imageUri: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+  chatRoomLastMessageId: ID
+  chatRoomAdminId: ID
+}
+
+type User @aws_iam @aws_api_key {
+  id: ID!
+  name: String!
+  imageUri: String
+  status: String
+  lastOnlineAt: AWSTimestamp
+  typingStatus: String
+  Messages(filter: ModelMessageFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelMessageConnection
+  chatrooms(filter: ModelChatRoomUserFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelChatRoomUserConnection
+  color: String
+  SavedMessages(filter: ModelSavedMessagesFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelSavedMessagesConnection
+  offline: Boolean
+  Momments(filter: ModelMommentFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelMommentConnection
+  Posts(filter: ModelPostFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelPostConnection
+  BlockedUsers(filter: ModelBlockedUserFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelBlockedUserConnection
+  Followings(filter: ModelFollowingFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelFollowingConnection
+  Followers(filter: ModelFollowerFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelFollowerConnection
+  Shares(filter: ModelSharesFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelSharesConnection
+  Comments(filter: ModelCommentFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelCommentConnection
+  Likes(filter: ModelLikeFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelLikeConnection
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+type ChatRoomUser @aws_iam @aws_api_key {
+  id: ID!
+  chatRoomID: ID!
+  userID: ID!
+  chatRoom: ChatRoom!
+  user: User!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  _version: Int!
+  _deleted: Boolean
+  _lastChangedAt: AWSTimestamp!
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelMommentConnection @aws_api_key @aws_iam {
+  items: [Momment]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelMommentFilterInput {
+  id: ModelIDInput
+  userID: ModelIDInput
+  and: [ModelMommentFilterInput]
+  or: [ModelMommentFilterInput]
+  not: ModelMommentFilterInput
+}
+
+type Query {
+  getMomment(id: ID!): Momment @aws_api_key @aws_iam
+  listMomments(filter: ModelMommentFilterInput, limit: Int, nextToken: String): ModelMommentConnection @aws_api_key @aws_iam
+  syncMomments(filter: ModelMommentFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelMommentConnection @aws_api_key @aws_iam
+  getShares(id: ID!): Shares @aws_api_key @aws_iam
+  listShares(filter: ModelSharesFilterInput, limit: Int, nextToken: String): ModelSharesConnection @aws_api_key @aws_iam
+  syncShares(filter: ModelSharesFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelSharesConnection @aws_api_key @aws_iam
+  getComment(id: ID!): Comment @aws_api_key @aws_iam
+  listComments(filter: ModelCommentFilterInput, limit: Int, nextToken: String): ModelCommentConnection @aws_api_key @aws_iam
+  syncComments(filter: ModelCommentFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelCommentConnection @aws_api_key @aws_iam
+  getLike(id: ID!): Like @aws_api_key @aws_iam
+  listLikes(filter: ModelLikeFilterInput, limit: Int, nextToken: String): ModelLikeConnection @aws_api_key @aws_iam
+  syncLikes(filter: ModelLikeFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelLikeConnection @aws_api_key @aws_iam
+  getPost(id: ID!): Post @aws_api_key @aws_iam
+  listPosts(filter: ModelPostFilterInput, limit: Int, nextToken: String): ModelPostConnection @aws_api_key @aws_iam
+  syncPosts(filter: ModelPostFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelPostConnection @aws_api_key @aws_iam
+  getBlockedUser(id: ID!): BlockedUser @aws_api_key @aws_iam
+  listBlockedUsers(filter: ModelBlockedUserFilterInput, limit: Int, nextToken: String): ModelBlockedUserConnection @aws_api_key @aws_iam
+  syncBlockedUsers(filter: ModelBlockedUserFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelBlockedUserConnection @aws_api_key @aws_iam
+  getFollowing(id: ID!): Following @aws_api_key @aws_iam
+  listFollowings(filter: ModelFollowingFilterInput, limit: Int, nextToken: String): ModelFollowingConnection @aws_api_key @aws_iam
+  syncFollowings(filter: ModelFollowingFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelFollowingConnection @aws_api_key @aws_iam
+  getFollower(id: ID!): Follower @aws_api_key @aws_iam
+  listFollowers(filter: ModelFollowerFilterInput, limit: Int, nextToken: String): ModelFollowerConnection @aws_api_key @aws_iam
+  syncFollowers(filter: ModelFollowerFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelFollowerConnection @aws_api_key @aws_iam
+  getSavedMessages(id: ID!): SavedMessages @aws_api_key @aws_iam
+  listSavedMessages(filter: ModelSavedMessagesFilterInput, limit: Int, nextToken: String): ModelSavedMessagesConnection @aws_api_key @aws_iam
+  syncSavedMessages(filter: ModelSavedMessagesFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelSavedMessagesConnection @aws_api_key @aws_iam
+  getReaction(id: ID!): Reaction @aws_api_key @aws_iam
+  listReactions(filter: ModelReactionFilterInput, limit: Int, nextToken: String): ModelReactionConnection @aws_api_key @aws_iam
+  syncReactions(filter: ModelReactionFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelReactionConnection @aws_api_key @aws_iam
+  getMessage(id: ID!): Message @aws_api_key @aws_iam
+  listMessages(filter: ModelMessageFilterInput, limit: Int, nextToken: String): ModelMessageConnection @aws_api_key @aws_iam
+  syncMessages(filter: ModelMessageFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelMessageConnection @aws_api_key @aws_iam
+  getChatRoom(id: ID!): ChatRoom @aws_api_key @aws_iam
+  listChatRooms(filter: ModelChatRoomFilterInput, limit: Int, nextToken: String): ModelChatRoomConnection @aws_api_key @aws_iam
+  syncChatRooms(filter: ModelChatRoomFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelChatRoomConnection @aws_api_key @aws_iam
+  getUser(id: ID!): User @aws_api_key @aws_iam
+  listUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String): ModelUserConnection @aws_api_key @aws_iam
+  syncUsers(filter: ModelUserFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelUserConnection @aws_api_key @aws_iam
+  getChatRoomUser(id: ID!): ChatRoomUser @aws_api_key @aws_iam
+  listChatRoomUsers(filter: ModelChatRoomUserFilterInput, limit: Int, nextToken: String): ModelChatRoomUserConnection @aws_api_key @aws_iam
+  syncChatRoomUsers(filter: ModelChatRoomUserFilterInput, limit: Int, nextToken: String, lastSync: AWSTimestamp): ModelChatRoomUserConnection @aws_api_key @aws_iam
+}
+
+input ModelMommentConditionInput {
+  userID: ModelIDInput
+  and: [ModelMommentConditionInput]
+  or: [ModelMommentConditionInput]
+  not: ModelMommentConditionInput
+}
+
+input CreateMommentInput {
+  id: ID
+  userID: ID
+  _version: Int
+}
+
+input UpdateMommentInput {
+  id: ID!
+  userID: ID
+  _version: Int
+}
+
+input DeleteMommentInput {
+  id: ID!
+  _version: Int
+}
+
+type Mutation {
+  createMomment(input: CreateMommentInput!, condition: ModelMommentConditionInput): Momment @aws_api_key @aws_iam
+  updateMomment(input: UpdateMommentInput!, condition: ModelMommentConditionInput): Momment @aws_api_key @aws_iam
+  deleteMomment(input: DeleteMommentInput!, condition: ModelMommentConditionInput): Momment @aws_api_key @aws_iam
+  createShares(input: CreateSharesInput!, condition: ModelSharesConditionInput): Shares @aws_api_key @aws_iam
+  updateShares(input: UpdateSharesInput!, condition: ModelSharesConditionInput): Shares @aws_api_key @aws_iam
+  deleteShares(input: DeleteSharesInput!, condition: ModelSharesConditionInput): Shares @aws_api_key @aws_iam
+  createComment(input: CreateCommentInput!, condition: ModelCommentConditionInput): Comment @aws_api_key @aws_iam
+  updateComment(input: UpdateCommentInput!, condition: ModelCommentConditionInput): Comment @aws_api_key @aws_iam
+  deleteComment(input: DeleteCommentInput!, condition: ModelCommentConditionInput): Comment @aws_api_key @aws_iam
+  createLike(input: CreateLikeInput!, condition: ModelLikeConditionInput): Like @aws_api_key @aws_iam
+  updateLike(input: UpdateLikeInput!, condition: ModelLikeConditionInput): Like @aws_api_key @aws_iam
+  deleteLike(input: DeleteLikeInput!, condition: ModelLikeConditionInput): Like @aws_api_key @aws_iam
+  createPost(input: CreatePostInput!, condition: ModelPostConditionInput): Post @aws_api_key @aws_iam
+  updatePost(input: UpdatePostInput!, condition: ModelPostConditionInput): Post @aws_api_key @aws_iam
+  deletePost(input: DeletePostInput!, condition: ModelPostConditionInput): Post @aws_api_key @aws_iam
+  createBlockedUser(input: CreateBlockedUserInput!, condition: ModelBlockedUserConditionInput): BlockedUser @aws_api_key @aws_iam
+  updateBlockedUser(input: UpdateBlockedUserInput!, condition: ModelBlockedUserConditionInput): BlockedUser @aws_api_key @aws_iam
+  deleteBlockedUser(input: DeleteBlockedUserInput!, condition: ModelBlockedUserConditionInput): BlockedUser @aws_api_key @aws_iam
+  createFollowing(input: CreateFollowingInput!, condition: ModelFollowingConditionInput): Following @aws_api_key @aws_iam
+  updateFollowing(input: UpdateFollowingInput!, condition: ModelFollowingConditionInput): Following @aws_api_key @aws_iam
+  deleteFollowing(input: DeleteFollowingInput!, condition: ModelFollowingConditionInput): Following @aws_api_key @aws_iam
+  createFollower(input: CreateFollowerInput!, condition: ModelFollowerConditionInput): Follower @aws_api_key @aws_iam
+  updateFollower(input: UpdateFollowerInput!, condition: ModelFollowerConditionInput): Follower @aws_api_key @aws_iam
+  deleteFollower(input: DeleteFollowerInput!, condition: ModelFollowerConditionInput): Follower @aws_api_key @aws_iam
+  createSavedMessages(input: CreateSavedMessagesInput!, condition: ModelSavedMessagesConditionInput): SavedMessages @aws_api_key @aws_iam
+  updateSavedMessages(input: UpdateSavedMessagesInput!, condition: ModelSavedMessagesConditionInput): SavedMessages @aws_api_key @aws_iam
+  deleteSavedMessages(input: DeleteSavedMessagesInput!, condition: ModelSavedMessagesConditionInput): SavedMessages @aws_api_key @aws_iam
+  createReaction(input: CreateReactionInput!, condition: ModelReactionConditionInput): Reaction @aws_api_key @aws_iam
+  updateReaction(input: UpdateReactionInput!, condition: ModelReactionConditionInput): Reaction @aws_api_key @aws_iam
+  deleteReaction(input: DeleteReactionInput!, condition: ModelReactionConditionInput): Reaction @aws_api_key @aws_iam
+  createMessage(input: CreateMessageInput!, condition: ModelMessageConditionInput): Message @aws_api_key @aws_iam
+  updateMessage(input: UpdateMessageInput!, condition: ModelMessageConditionInput): Message @aws_api_key @aws_iam
+  deleteMessage(input: DeleteMessageInput!, condition: ModelMessageConditionInput): Message @aws_api_key @aws_iam
+  createChatRoom(input: CreateChatRoomInput!, condition: ModelChatRoomConditionInput): ChatRoom @aws_api_key @aws_iam
+  updateChatRoom(input: UpdateChatRoomInput!, condition: ModelChatRoomConditionInput): ChatRoom @aws_api_key @aws_iam
+  deleteChatRoom(input: DeleteChatRoomInput!, condition: ModelChatRoomConditionInput): ChatRoom @aws_api_key @aws_iam
+  createUser(input: CreateUserInput!, condition: ModelUserConditionInput): User @aws_api_key @aws_iam
+  updateUser(input: UpdateUserInput!, condition: ModelUserConditionInput): User @aws_api_key @aws_iam
+  deleteUser(input: DeleteUserInput!, condition: ModelUserConditionInput): User @aws_api_key @aws_iam
+  createChatRoomUser(input: CreateChatRoomUserInput!, condition: ModelChatRoomUserConditionInput): ChatRoomUser @aws_api_key @aws_iam
+  updateChatRoomUser(input: UpdateChatRoomUserInput!, condition: ModelChatRoomUserConditionInput): ChatRoomUser @aws_api_key @aws_iam
+  deleteChatRoomUser(input: DeleteChatRoomUserInput!, condition: ModelChatRoomUserConditionInput): ChatRoomUser @aws_api_key @aws_iam
+}
+
+type Subscription {
+  onCreateMomment: Momment @aws_subscribe(mutations: ["createMomment"]) @aws_api_key @aws_iam
+  onUpdateMomment: Momment @aws_subscribe(mutations: ["updateMomment"]) @aws_api_key @aws_iam
+  onDeleteMomment: Momment @aws_subscribe(mutations: ["deleteMomment"]) @aws_api_key @aws_iam
+  onCreateShares: Shares @aws_subscribe(mutations: ["createShares"]) @aws_api_key @aws_iam
+  onUpdateShares: Shares @aws_subscribe(mutations: ["updateShares"]) @aws_api_key @aws_iam
+  onDeleteShares: Shares @aws_subscribe(mutations: ["deleteShares"]) @aws_api_key @aws_iam
+  onCreateComment: Comment @aws_subscribe(mutations: ["createComment"]) @aws_api_key @aws_iam
+  onUpdateComment: Comment @aws_subscribe(mutations: ["updateComment"]) @aws_api_key @aws_iam
+  onDeleteComment: Comment @aws_subscribe(mutations: ["deleteComment"]) @aws_api_key @aws_iam
+  onCreateLike: Like @aws_subscribe(mutations: ["createLike"]) @aws_api_key @aws_iam
+  onUpdateLike: Like @aws_subscribe(mutations: ["updateLike"]) @aws_api_key @aws_iam
+  onDeleteLike: Like @aws_subscribe(mutations: ["deleteLike"]) @aws_api_key @aws_iam
+  onCreatePost: Post @aws_subscribe(mutations: ["createPost"]) @aws_api_key @aws_iam
+  onUpdatePost: Post @aws_subscribe(mutations: ["updatePost"]) @aws_api_key @aws_iam
+  onDeletePost: Post @aws_subscribe(mutations: ["deletePost"]) @aws_api_key @aws_iam
+  onCreateBlockedUser: BlockedUser @aws_subscribe(mutations: ["createBlockedUser"]) @aws_api_key @aws_iam
+  onUpdateBlockedUser: BlockedUser @aws_subscribe(mutations: ["updateBlockedUser"]) @aws_api_key @aws_iam
+  onDeleteBlockedUser: BlockedUser @aws_subscribe(mutations: ["deleteBlockedUser"]) @aws_api_key @aws_iam
+  onCreateFollowing: Following @aws_subscribe(mutations: ["createFollowing"]) @aws_api_key @aws_iam
+  onUpdateFollowing: Following @aws_subscribe(mutations: ["updateFollowing"]) @aws_api_key @aws_iam
+  onDeleteFollowing: Following @aws_subscribe(mutations: ["deleteFollowing"]) @aws_api_key @aws_iam
+  onCreateFollower: Follower @aws_subscribe(mutations: ["createFollower"]) @aws_api_key @aws_iam
+  onUpdateFollower: Follower @aws_subscribe(mutations: ["updateFollower"]) @aws_api_key @aws_iam
+  onDeleteFollower: Follower @aws_subscribe(mutations: ["deleteFollower"]) @aws_api_key @aws_iam
+  onCreateSavedMessages: SavedMessages @aws_subscribe(mutations: ["createSavedMessages"]) @aws_api_key @aws_iam
+  onUpdateSavedMessages: SavedMessages @aws_subscribe(mutations: ["updateSavedMessages"]) @aws_api_key @aws_iam
+  onDeleteSavedMessages: SavedMessages @aws_subscribe(mutations: ["deleteSavedMessages"]) @aws_api_key @aws_iam
+  onCreateReaction: Reaction @aws_subscribe(mutations: ["createReaction"]) @aws_api_key @aws_iam
+  onUpdateReaction: Reaction @aws_subscribe(mutations: ["updateReaction"]) @aws_api_key @aws_iam
+  onDeleteReaction: Reaction @aws_subscribe(mutations: ["deleteReaction"]) @aws_api_key @aws_iam
+  onCreateMessage: Message @aws_subscribe(mutations: ["createMessage"]) @aws_api_key @aws_iam
+  onUpdateMessage: Message @aws_subscribe(mutations: ["updateMessage"]) @aws_api_key @aws_iam
+  onDeleteMessage: Message @aws_subscribe(mutations: ["deleteMessage"]) @aws_api_key @aws_iam
+  onCreateChatRoom: ChatRoom @aws_subscribe(mutations: ["createChatRoom"]) @aws_api_key @aws_iam
+  onUpdateChatRoom: ChatRoom @aws_subscribe(mutations: ["updateChatRoom"]) @aws_api_key @aws_iam
+  onDeleteChatRoom: ChatRoom @aws_subscribe(mutations: ["deleteChatRoom"]) @aws_api_key @aws_iam
+  onCreateUser: User @aws_subscribe(mutations: ["createUser"]) @aws_api_key @aws_iam
+  onUpdateUser: User @aws_subscribe(mutations: ["updateUser"]) @aws_api_key @aws_iam
+  onDeleteUser: User @aws_subscribe(mutations: ["deleteUser"]) @aws_api_key @aws_iam
+  onCreateChatRoomUser: ChatRoomUser @aws_subscribe(mutations: ["createChatRoomUser"]) @aws_api_key @aws_iam
+  onUpdateChatRoomUser: ChatRoomUser @aws_subscribe(mutations: ["updateChatRoomUser"]) @aws_api_key @aws_iam
+  onDeleteChatRoomUser: ChatRoomUser @aws_subscribe(mutations: ["deleteChatRoomUser"]) @aws_api_key @aws_iam
+}
+
+type ModelSharesConnection @aws_iam @aws_api_key {
+  items: [Shares]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelSharesFilterInput {
+  id: ModelIDInput
+  mommentID: ModelIDInput
+  postID: ModelIDInput
+  userID: ModelIDInput
+  and: [ModelSharesFilterInput]
+  or: [ModelSharesFilterInput]
+  not: ModelSharesFilterInput
+}
+
+input ModelSharesConditionInput {
+  mommentID: ModelIDInput
+  postID: ModelIDInput
+  userID: ModelIDInput
+  and: [ModelSharesConditionInput]
+  or: [ModelSharesConditionInput]
+  not: ModelSharesConditionInput
+}
+
+input CreateSharesInput {
+  id: ID
+  mommentID: ID
+  postID: ID
+  userID: ID
+  _version: Int
+}
+
+input UpdateSharesInput {
+  id: ID!
+  mommentID: ID
+  postID: ID
+  userID: ID
+  _version: Int
+}
+
+input DeleteSharesInput {
+  id: ID!
+  _version: Int
+}
+
+type ModelCommentConnection @aws_iam @aws_api_key {
+  items: [Comment]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelCommentFilterInput {
+  id: ModelIDInput
+  mommentID: ModelIDInput
+  postID: ModelIDInput
+  userID: ModelIDInput
+  and: [ModelCommentFilterInput]
+  or: [ModelCommentFilterInput]
+  not: ModelCommentFilterInput
+}
+
+input ModelCommentConditionInput {
+  mommentID: ModelIDInput
+  postID: ModelIDInput
+  userID: ModelIDInput
+  and: [ModelCommentConditionInput]
+  or: [ModelCommentConditionInput]
+  not: ModelCommentConditionInput
+}
+
+input CreateCommentInput {
+  id: ID
+  mommentID: ID
+  postID: ID
+  userID: ID
+  _version: Int
+}
+
+input UpdateCommentInput {
+  id: ID!
+  mommentID: ID
+  postID: ID
+  userID: ID
+  _version: Int
+}
+
+input DeleteCommentInput {
+  id: ID!
+  _version: Int
+}
+
+type ModelLikeConnection @aws_iam @aws_api_key {
+  items: [Like]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelLikeFilterInput {
+  id: ModelIDInput
+  mommentID: ModelIDInput
+  postID: ModelIDInput
+  userID: ModelIDInput
+  and: [ModelLikeFilterInput]
+  or: [ModelLikeFilterInput]
+  not: ModelLikeFilterInput
+}
+
+input ModelLikeConditionInput {
+  mommentID: ModelIDInput
+  postID: ModelIDInput
+  userID: ModelIDInput
+  and: [ModelLikeConditionInput]
+  or: [ModelLikeConditionInput]
+  not: ModelLikeConditionInput
+}
+
+input CreateLikeInput {
+  id: ID
+  mommentID: ID
+  postID: ID
+  userID: ID
+  _version: Int
+}
+
+input UpdateLikeInput {
+  id: ID!
+  mommentID: ID
+  postID: ID
+  userID: ID
+  _version: Int
+}
+
+input DeleteLikeInput {
+  id: ID!
+  _version: Int
+}
+
+type ModelPostConnection @aws_api_key @aws_iam {
+  items: [Post]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelPostFilterInput {
+  id: ModelIDInput
+  userID: ModelIDInput
+  and: [ModelPostFilterInput]
+  or: [ModelPostFilterInput]
+  not: ModelPostFilterInput
+}
+
+input ModelPostConditionInput {
+  userID: ModelIDInput
+  and: [ModelPostConditionInput]
+  or: [ModelPostConditionInput]
+  not: ModelPostConditionInput
+}
+
+input CreatePostInput {
+  id: ID
+  userID: ID
+  _version: Int
+}
+
+input UpdatePostInput {
+  id: ID!
+  userID: ID
+  _version: Int
+}
+
+input DeletePostInput {
+  id: ID!
+  _version: Int
+}
+
+type ModelBlockedUserConnection @aws_api_key @aws_iam {
+  items: [BlockedUser]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelBlockedUserFilterInput {
+  id: ModelIDInput
+  userID: ModelIDInput
+  and: [ModelBlockedUserFilterInput]
+  or: [ModelBlockedUserFilterInput]
+  not: ModelBlockedUserFilterInput
+}
+
+input ModelBlockedUserConditionInput {
+  userID: ModelIDInput
+  and: [ModelBlockedUserConditionInput]
+  or: [ModelBlockedUserConditionInput]
+  not: ModelBlockedUserConditionInput
+}
+
+input CreateBlockedUserInput {
+  id: ID
+  userID: ID
+  _version: Int
+}
+
+input UpdateBlockedUserInput {
+  id: ID!
+  userID: ID
+  _version: Int
+}
+
+input DeleteBlockedUserInput {
+  id: ID!
+  _version: Int
+}
+
+type ModelFollowingConnection @aws_api_key @aws_iam {
+  items: [Following]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelFollowingFilterInput {
+  id: ModelIDInput
+  userID: ModelIDInput
+  and: [ModelFollowingFilterInput]
+  or: [ModelFollowingFilterInput]
+  not: ModelFollowingFilterInput
+}
+
+input ModelFollowingConditionInput {
+  userID: ModelIDInput
+  and: [ModelFollowingConditionInput]
+  or: [ModelFollowingConditionInput]
+  not: ModelFollowingConditionInput
+}
+
+input CreateFollowingInput {
+  id: ID
+  userID: ID
+  _version: Int
+}
+
+input UpdateFollowingInput {
+  id: ID!
+  userID: ID
+  _version: Int
+}
+
+input DeleteFollowingInput {
+  id: ID!
+  _version: Int
+}
+
+type ModelFollowerConnection @aws_api_key @aws_iam {
+  items: [Follower]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelFollowerFilterInput {
+  id: ModelIDInput
+  userID: ModelIDInput
+  and: [ModelFollowerFilterInput]
+  or: [ModelFollowerFilterInput]
+  not: ModelFollowerFilterInput
+}
+
+input ModelFollowerConditionInput {
+  userID: ModelIDInput
+  and: [ModelFollowerConditionInput]
+  or: [ModelFollowerConditionInput]
+  not: ModelFollowerConditionInput
+}
+
+input CreateFollowerInput {
+  id: ID
+  userID: ID
+  _version: Int
+}
+
+input UpdateFollowerInput {
+  id: ID!
+  userID: ID
+  _version: Int
+}
+
+input DeleteFollowerInput {
+  id: ID!
+  _version: Int
+}
+
+type ModelSavedMessagesConnection @aws_api_key @aws_iam {
+  items: [SavedMessages]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelSavedMessagesFilterInput {
+  id: ModelIDInput
+  content: ModelStringInput
+  senderName: ModelStringInput
+  senderID: ModelIDInput
+  userID: ModelIDInput
+  and: [ModelSavedMessagesFilterInput]
+  or: [ModelSavedMessagesFilterInput]
+  not: ModelSavedMessagesFilterInput
+}
+
+input ModelSavedMessagesConditionInput {
+  content: ModelStringInput
+  senderName: ModelStringInput
+  senderID: ModelIDInput
+  userID: ModelIDInput
+  and: [ModelSavedMessagesConditionInput]
+  or: [ModelSavedMessagesConditionInput]
+  not: ModelSavedMessagesConditionInput
+}
+
+input CreateSavedMessagesInput {
+  id: ID
+  content: String
+  senderName: String
+  senderID: ID
+  userID: ID
+  _version: Int
+}
+
+input UpdateSavedMessagesInput {
+  id: ID!
+  content: String
+  senderName: String
+  senderID: ID
+  userID: ID
+  _version: Int
+}
+
+input DeleteSavedMessagesInput {
+  id: ID!
+  _version: Int
+}
+
+type ModelReactionConnection @aws_api_key @aws_iam {
+  items: [Reaction]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelReactionFilterInput {
+  id: ModelIDInput
+  userID: ModelIDInput
+  content: ModelStringInput
+  messageID: ModelIDInput
+  and: [ModelReactionFilterInput]
+  or: [ModelReactionFilterInput]
+  not: ModelReactionFilterInput
+}
+
+input ModelReactionConditionInput {
+  userID: ModelIDInput
+  content: ModelStringInput
+  messageID: ModelIDInput
+  and: [ModelReactionConditionInput]
+  or: [ModelReactionConditionInput]
+  not: ModelReactionConditionInput
+}
+
+input CreateReactionInput {
+  id: ID
+  userID: ID
+  content: String
+  messageID: ID
+  _version: Int
+}
+
+input UpdateReactionInput {
+  id: ID!
+  userID: ID
+  content: String
+  messageID: ID
+  _version: Int
+}
+
+input DeleteReactionInput {
+  id: ID!
+  _version: Int
+}
+
+type ModelMessageConnection @aws_api_key @aws_iam {
+  items: [Message]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelMessageStatusInput {
+  eq: MessageStatus
+  ne: MessageStatus
+}
+
+input ModelMessageFilterInput {
+  id: ModelIDInput
+  content: ModelStringInput
+  userID: ModelIDInput
+  chatroomID: ModelIDInput
+  image: ModelStringInput
+  audio: ModelStringInput
+  status: ModelMessageStatusInput
+  replyToMessageID: ModelIDInput
+  isSelected: ModelBooleanInput
+  and: [ModelMessageFilterInput]
+  or: [ModelMessageFilterInput]
+  not: ModelMessageFilterInput
+}
+
+input ModelMessageConditionInput {
+  content: ModelStringInput
+  userID: ModelIDInput
+  chatroomID: ModelIDInput
+  image: ModelStringInput
+  audio: ModelStringInput
+  status: ModelMessageStatusInput
+  replyToMessageID: ModelIDInput
+  isSelected: ModelBooleanInput
+  and: [ModelMessageConditionInput]
+  or: [ModelMessageConditionInput]
+  not: ModelMessageConditionInput
+}
+
+input CreateMessageInput {
+  id: ID
+  content: String
+  userID: ID
+  chatroomID: ID
+  image: String
+  audio: String
+  status: MessageStatus
+  replyToMessageID: ID
+  isSelected: Boolean
+  _version: Int
+}
+
+input UpdateMessageInput {
+  id: ID!
+  content: String
+  userID: ID
+  chatroomID: ID
+  image: String
+  audio: String
+  status: MessageStatus
+  replyToMessageID: ID
+  isSelected: Boolean
+  _version: Int
+}
+
+input DeleteMessageInput {
+  id: ID!
+  _version: Int
+}
+
+type ModelChatRoomConnection @aws_api_key @aws_iam {
+  items: [ChatRoom]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelChatRoomFilterInput {
+  id: ModelIDInput
+  newMessages: ModelIntInput
+  name: ModelStringInput
+  imageUri: ModelStringInput
+  and: [ModelChatRoomFilterInput]
+  or: [ModelChatRoomFilterInput]
+  not: ModelChatRoomFilterInput
+  chatRoomLastMessageId: ModelIDInput
+  chatRoomAdminId: ModelIDInput
+}
+
+input ModelChatRoomConditionInput {
+  newMessages: ModelIntInput
+  name: ModelStringInput
+  imageUri: ModelStringInput
+  and: [ModelChatRoomConditionInput]
+  or: [ModelChatRoomConditionInput]
+  not: ModelChatRoomConditionInput
+  chatRoomLastMessageId: ModelIDInput
+  chatRoomAdminId: ModelIDInput
+}
+
+input CreateChatRoomInput {
+  id: ID
+  newMessages: Int
+  name: String
+  imageUri: String
+  _version: Int
+  chatRoomLastMessageId: ID
+  chatRoomAdminId: ID
+}
+
+input UpdateChatRoomInput {
+  id: ID!
+  newMessages: Int
+  name: String
+  imageUri: String
+  _version: Int
+  chatRoomLastMessageId: ID
+  chatRoomAdminId: ID
+}
+
+input DeleteChatRoomInput {
+  id: ID!
+  _version: Int
+}
+
+type ModelUserConnection @aws_api_key @aws_iam {
+  items: [User]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelUserFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  imageUri: ModelStringInput
+  status: ModelStringInput
+  lastOnlineAt: ModelIntInput
+  typingStatus: ModelStringInput
+  color: ModelStringInput
+  offline: ModelBooleanInput
+  and: [ModelUserFilterInput]
+  or: [ModelUserFilterInput]
+  not: ModelUserFilterInput
+}
+
+input ModelUserConditionInput {
+  name: ModelStringInput
+  imageUri: ModelStringInput
+  status: ModelStringInput
+  lastOnlineAt: ModelIntInput
+  typingStatus: ModelStringInput
+  color: ModelStringInput
+  offline: ModelBooleanInput
+  and: [ModelUserConditionInput]
+  or: [ModelUserConditionInput]
+  not: ModelUserConditionInput
+}
+
+input CreateUserInput {
+  id: ID
+  name: String!
+  imageUri: String
+  status: String
+  lastOnlineAt: AWSTimestamp
+  typingStatus: String
+  color: String
+  offline: Boolean
+  _version: Int
+}
+
+input UpdateUserInput {
+  id: ID!
+  name: String
+  imageUri: String
+  status: String
+  lastOnlineAt: AWSTimestamp
+  typingStatus: String
+  color: String
+  offline: Boolean
+  _version: Int
+}
+
+input DeleteUserInput {
+  id: ID!
+  _version: Int
+}
+
+type ModelChatRoomUserConnection @aws_iam @aws_api_key {
+  items: [ChatRoomUser]!
+  nextToken: String
+  startedAt: AWSTimestamp
+}
+
+input ModelChatRoomUserFilterInput {
+  id: ModelIDInput
+  chatRoomID: ModelIDInput
+  userID: ModelIDInput
+  and: [ModelChatRoomUserFilterInput]
+  or: [ModelChatRoomUserFilterInput]
+  not: ModelChatRoomUserFilterInput
+}
+
+input ModelChatRoomUserConditionInput {
+  chatRoomID: ModelIDInput
+  userID: ModelIDInput
+  and: [ModelChatRoomUserConditionInput]
+  or: [ModelChatRoomUserConditionInput]
+  not: ModelChatRoomUserConditionInput
+}
+
+input CreateChatRoomUserInput {
+  id: ID
+  chatRoomID: ID!
+  userID: ID!
+  _version: Int
+}
+
+input UpdateChatRoomUserInput {
+  id: ID!
+  chatRoomID: ID
+  userID: ID
+  _version: Int
+}
+
+input DeleteChatRoomUserInput {
+  id: ID!
+  _version: Int
+}
+
+input ModelIDKeyConditionInput {
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  between: [ID]
+  beginsWith: ID
+}
+

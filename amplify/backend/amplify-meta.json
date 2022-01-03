@@ -1,0 +1,127 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-hellothere-staging-72144-authRole",
+      "UnauthRoleArn": "arn:aws:iam::466538101792:role/amplify-hellothere-staging-72144-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::466538101792:role/amplify-hellothere-staging-72144-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-hellothere-staging-72144-deployment",
+      "UnauthRoleName": "amplify-hellothere-staging-72144-unauthRole",
+      "StackName": "amplify-hellothere-staging-72144",
+      "StackId": "arn:aws:cloudformation:us-east-2:466538101792:stack/amplify-hellothere-staging-72144/a7198d10-622e-11ec-8ea5-06c39b57d310",
+      "AmplifyAppId": "dhw47avpedo6y",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-hellothere-staging-72144-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    }
+  },
+  "auth": {
+    "HelloThere": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "HelloTherePostConfirmation",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        }
+      ],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "output": {
+        "UserPoolId": "us-east-2_k7azthXO5",
+        "AppClientIDWeb": "6vhchsnlkge0srjn6jpp01osnr",
+        "AppClientID": "48oqp673h6aopcf2b7tc5f65ql",
+        "IdentityPoolId": "us-east-2:c8f6a48c-183b-4f9a-982f-d838489e48eb",
+        "UserPoolArn": "arn:aws:cognito-idp:us-east-2:466538101792:userpool/us-east-2_k7azthXO5",
+        "IdentityPoolName": "testAuthIdentityPool__staging",
+        "UserPoolName": "HelloThere"
+      },
+      "lastPushTimeStamp": "2022-01-03T14:42:30.182Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-hellothere-staging-72144-deployment/amplify-cfn-templates/auth/HelloThere-cloudformation-template.json",
+        "logicalId": "authHelloThere"
+      }
+    }
+  },
+  "api": {
+    "HelloThere": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "API_KEY",
+            "apiKeyConfig": {
+              "apiKeyExpirationDays": 30,
+              "description": "api key description"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "AWS_IAM"
+            },
+            {
+              "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+              "userPoolConfig": {
+                "userPoolId": "authHelloThere"
+              }
+            }
+          ]
+        },
+        "GraphQLAPIIdOutput": "cufmxq2pbraidien7ogy645nqu",
+        "GraphQLAPIEndpointOutput": "https://cathawurindezheynjnfyzqmvm.appsync-api.us-east-2.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-6q236656zrdk5mfw274fcxfxwm"
+      },
+      "lastPushTimeStamp": "2022-01-03T14:42:30.187Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-hellothere-staging-72144-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiHelloThere"
+      },
+      "lastPushDirHash": "YKuAqlLvZggNydpGXbbwQ3mD9Vk="
+    }
+  },
+  "function": {
+    "HelloTherePostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "output": {
+        "Region": "us-east-2",
+        "Arn": "arn:aws:lambda:us-east-2:466538101792:function:HelloTherePostConfirmation-staging",
+        "Name": "HelloTherePostConfirmation-staging",
+        "LambdaExecutionRole": "HelloTherePostConfirmation-staging"
+      },
+      "lastPushTimeStamp": "2022-01-03T14:42:30.192Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-hellothere-staging-72144-deployment/amplify-cfn-templates/function/HelloTherePostConfirmation-cloudformation-template.json",
+        "logicalId": "functionHelloTherePostConfirmation"
+      },
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-hellothere-staging-72144-deployment",
+        "s3Key": "amplify-builds/HelloTherePostConfirmation-6e6c654f76723179754d-build.zip"
+      }
+    }
+  }
+}

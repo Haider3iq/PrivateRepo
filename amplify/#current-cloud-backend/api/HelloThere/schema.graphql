@@ -1,0 +1,119 @@
+type Momment @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Shares: [Shares] @hasMany(indexName: "byMomment", fields: ["id"])
+  Comments: [Comment] @hasMany(indexName: "byMomment", fields: ["id"])
+  Likes: [Like] @hasMany(indexName: "byMomment", fields: ["id"])
+  userID: ID @index(name: "byUser")
+}
+
+type Shares @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  mommentID: ID @index(name: "byMomment")
+  postID: ID @index(name: "byPost")
+  userID: ID @index(name: "byUser")
+}
+
+type Comment @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  mommentID: ID @index(name: "byMomment")
+  postID: ID @index(name: "byPost")
+  userID: ID @index(name: "byUser")
+}
+
+type Like @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  mommentID: ID @index(name: "byMomment")
+  postID: ID @index(name: "byPost")
+  userID: ID @index(name: "byUser")
+}
+
+type Post @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Shares: [Shares] @hasMany(indexName: "byPost", fields: ["id"])
+  Comments: [Comment] @hasMany(indexName: "byPost", fields: ["id"])
+  Likes: [Like] @hasMany(indexName: "byPost", fields: ["id"])
+  userID: ID @index(name: "byUser")
+}
+
+type BlockedUser @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  userID: ID @index(name: "byUser")
+}
+
+type Following @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  userID: ID @index(name: "byUser")
+}
+
+type Follower @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  userID: ID @index(name: "byUser")
+}
+
+type SavedMessages @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  content: String
+  senderName: String
+  senderID: ID
+  userID: ID @index(name: "byUser")
+}
+
+type Reaction @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  userID: ID
+  content: String
+  messageID: ID @index(name: "byMessage")
+}
+
+enum MessageStatus {
+  SENT
+  DELIVERED
+  READ
+}
+
+type Message @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  content: String
+  userID: ID @index(name: "byUser")
+  chatroomID: ID @index(name: "byChatRoom")
+  image: String
+  audio: String
+  status: MessageStatus
+  replyToMessageID: ID
+  Reactions: [Reaction] @hasMany(indexName: "byMessage", fields: ["id"])
+  isSelected: Boolean
+}
+
+type ChatRoom @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  newMessages: Int
+  LastMessage: Message @hasOne
+  Messages: [Message] @hasMany(indexName: "byChatRoom", fields: ["id"])
+  ChatRoomUser: [User] @manyToMany(relationName: "ChatRoomUser")
+  Admin: User @hasOne
+  name: String
+  imageUri: String
+}
+
+type User @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  imageUri: String
+  status: String
+  lastOnlineAt: AWSTimestamp
+  typingStatus: String
+  Messages: [Message] @hasMany(indexName: "byUser", fields: ["id"])
+  chatrooms: [ChatRoom] @manyToMany(relationName: "ChatRoomUser")
+  color: String
+  SavedMessages: [SavedMessages] @hasMany(indexName: "byUser", fields: ["id"])
+  offline: Boolean
+  Momments: [Momment] @hasMany(indexName: "byUser", fields: ["id"])
+  Posts: [Post] @hasMany(indexName: "byUser", fields: ["id"])
+  BlockedUsers: [BlockedUser] @hasMany(indexName: "byUser", fields: ["id"])
+  Followings: [Following] @hasMany(indexName: "byUser", fields: ["id"])
+  Followers: [Follower] @hasMany(indexName: "byUser", fields: ["id"])
+  Shares: [Shares] @hasMany(indexName: "byUser", fields: ["id"])
+  Comments: [Comment] @hasMany(indexName: "byUser", fields: ["id"])
+  Likes: [Like] @hasMany(indexName: "byUser", fields: ["id"])
+}
+ 

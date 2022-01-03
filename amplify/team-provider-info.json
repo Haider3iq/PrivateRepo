@@ -1,0 +1,27 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-hellothere-staging-72144-authRole",
+      "UnauthRoleArn": "arn:aws:iam::466538101792:role/amplify-hellothere-staging-72144-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::466538101792:role/amplify-hellothere-staging-72144-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-hellothere-staging-72144-deployment",
+      "UnauthRoleName": "amplify-hellothere-staging-72144-unauthRole",
+      "StackName": "amplify-hellothere-staging-72144",
+      "StackId": "arn:aws:cloudformation:us-east-2:466538101792:stack/amplify-hellothere-staging-72144/a7198d10-622e-11ec-8ea5-06c39b57d310",
+      "AmplifyAppId": "dhw47avpedo6y",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-hellothere-staging-72144-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+    },
+    "categories": {
+      "auth": {
+        "HelloThere": {}
+      },
+      "function": {
+        "HelloTherePostConfirmation": {
+          "deploymentBucketName": "amplify-hellothere-staging-72144-deployment",
+          "s3Key": "amplify-builds/HelloTherePostConfirmation-6e6c654f76723179754d-build.zip"
+        }
+      }
+    }
+  }
+}
